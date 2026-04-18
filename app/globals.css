@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Fondos base ─── */
+  --color-bg-base: #08060f;
+  --color-bg-surface: #0f0b1f;
+  --color-bg-elevated: #1a1030;
+
+  /* ─── Glass (sobre blobs morados) ─── */
+  --color-glass-bg: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(168, 139, 250, 0.15);
+
+  /* ─── Morados (acentos) ─── */
+  --color-purple-primary: #7c3aed;
+  --color-purple-vivid: #a78bfa;
+  --color-purple-soft: #c4b5fd;
+  --color-purple-deep: #5b21b6;
+
+  /* ─── Texto ─── */
+  --color-text-primary: #f5f3ff;
+  --color-text-secondary: #c4b5fd;
+  --color-text-muted: #8b7fb5;
+
+  /* ─── Estados ─── */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  /* ─── Niveles de fidelidad (gradients via custom utilities) ─── */
+  --color-level-bronze: #b45309;
+  --color-level-silver: #9ca3af;
+  --color-level-gold: #facc15;
+  --color-level-diamond: #67e8f9;
+
+  /* ─── Fuentes ─── */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+
+  /* ─── Radios y shadows ─── */
+  --radius-glass: 1rem;
+  --shadow-glass:
+    0 8px 32px rgba(124, 58, 237, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-neon: 0 0 24px rgba(124, 58, 237, 0.45);
+
+  /* ─── Blur ─── */
+  --blur-glass: 20px;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+/* Patrón de fondo: radial gradients morados sutiles como atmósfera */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(124, 58, 237, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(91, 33, 182, 0.15), transparent 60%);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Glass utility via @utility (Tailwind v4) ─── */
+@utility glass-panel {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-panel-strong {
+  background: rgba(26, 16, 48, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Fallback para navegadores sin backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-panel,
+  .glass-panel-strong {
+    background: rgba(15, 11, 31, 0.92);
+  }
+}
+
+/* ─── Focus ring consistente para todo elemento foco-visible ─── */
+*:focus-visible {
+  outline: 2px solid var(--color-purple-vivid);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Reducir movimiento ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::before {
+    background: none;
+  }
+}
+
+/* ─── Scrollbar discreto pero visible ─── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.35);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.55);
+}
+
+/* ─── Selección de texto ─── */
+::selection {
+  background: rgba(167, 139, 250, 0.35);
+  color: var(--color-text-primary);
+}
