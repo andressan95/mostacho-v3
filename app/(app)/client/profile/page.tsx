@@ -1,5 +1,6 @@
 import { GlassCard } from "@/components/glass";
 import { ProfileForm } from "@/components/client/ProfileForm";
+import { PushNotificationsCard } from "@/components/client/PushNotificationsCard";
 import { requireSession } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 
@@ -36,6 +37,8 @@ export default async function ClientProfilePage() {
           birthday={profile?.birthday ?? null}
         />
       </GlassCard>
+
+      <PushNotificationsCard />
     </div>
   );
 }

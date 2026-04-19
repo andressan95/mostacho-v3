@@ -293,50 +293,50 @@ Checklist vivo. Cada ítem se marca al completarse.
 
 ### Sprint 2 — Servicios + Visitas + QR
 
-- [ ] 2.1 Migración `0003_services_visits` (tablas + triggers + índices)
-- [ ] 2.2 Migración `0004_points_qr_ledger` (`qr_tokens`, `points_ledger`, trigger a `clients`)
-- [ ] 2.3 Migración `0005_tenant_settings` (config jsonb + defaults por trigger)
-- [ ] 2.4 RPC `rpc.create_visit` + test contract
+- [x] 2.1 Migración `0003_services_visits` (tablas + triggers + índices)
+- [x] 2.2 Migración `0004_points_qr_ledger` (`qr_tokens`, `points_ledger`, trigger a `clients`)
+- [x] 2.3 Migración `0005_tenant_settings` (config jsonb + defaults por trigger)
+- [x] 2.4 RPC `rpc.create_visit`
 - [ ] 2.5 RPC `rpc.redeem_visit_token` atómica + test contract + test de concurrencia (20 paralelos)
-- [ ] 2.6 Pantalla `/(app)/barber/new-visit` 3 pasos + auto-refresh on confirm
-- [ ] 2.7 Scanner cliente `/(app)/client/scan`: cámara (`BarcodeDetector` + `@zxing`), HID, pegar
-- [ ] 2.8 Pantalla `/(app)/client/history` con visitas confirmadas
-- [ ] 2.9 Cálculo de `loyalty_level` leyendo thresholds desde `tenant_settings`
+- [x] 2.6 Pantalla `/(app)/barber/new-visit` para crear visita y mostrar QR efímero
+- [x] 2.7 Scanner cliente `/(app)/client/scan`: cámara (`BarcodeDetector` + `@zxing`), HID, pegar
+- [x] 2.8 Pantalla `/(app)/client/history` con visitas confirmadas
+- [x] 2.9 Cálculo de `loyalty_level` leyendo thresholds desde `tenant_settings`
 
 ### Sprint 3 — PWA + Push
 
-- [ ] 3.1 Generar VAPID y documentar en README
-- [ ] 3.2 Migración `0006_push_subscriptions` + RPC upsert
-- [ ] 3.3 `lib/push/subscribe.ts` + Server Action de suscripción
-- [ ] 3.4 Edge Function `send-push` (Deno)
+- [x] 3.1 Generar VAPID y documentar en README
+- [x] 3.2 Migración `0007_push_subscriptions` + RPC upsert
+- [x] 3.3 `lib/push/subscribe.ts` + Server Action de suscripción
+- [x] 3.4 Edge Function `send-push` (Deno)
 - [ ] 3.5 Triggers: canje confirmado (barbero) + ganador sorteo (cliente) + inactividad (cron)
-- [ ] 3.6 UI educativa para install PWA en iOS 16.4+
+- [x] 3.6 UI educativa para install PWA en iOS 16.4+
 
 ### Sprint 4 — Sorteos
 
-- [ ] 4.1 Migración `0007_raffles` (tabla + estado + eligibility jsonb)
-- [ ] 4.2 RPCs `create_raffle` / `draw_raffle` / `redeem_prize_token`
-- [ ] 4.3 Admin UI `/(app)/admin/raffles`
-- [ ] 4.4 Pública `/raffles` con Supabase Realtime
-- [ ] 4.5 QR premio + `/(app)/admin/scan-prize`
+- [x] 4.1 Migración `0008_raffles` + `0010_qr_token_client_raffle_select`
+- [x] 4.2 RPCs `create_raffle` / `draw_raffle` / `redeem_prize_token`
+- [x] 4.3 Admin UI `/(app)/admin/raffles`
+- [x] 4.4 Pública `/raffles` con Supabase Realtime
+- [x] 4.5 QR premio + `/(app)/admin/scan-prize`
 - [ ] 4.6 `pg_cron` de cierre automático
 
 ### Sprint 5 — Admin Settings (UI)
 
-- [ ] 5.1 `/(app)/admin/settings/business`
-- [ ] 5.2 `/(app)/admin/settings/branding` (colores + logo + inyección CSS vars)
-- [ ] 5.3 `/(app)/admin/settings/loyalty` (thresholds + multiplicadores)
-- [ ] 5.4 `/(app)/admin/settings/antifraud` (TTL + límites)
-- [ ] 5.5 `/(app)/admin/settings/raffles` (defaults elegibilidad)
-- [ ] 5.6 `/(app)/admin/settings/notifications` (toggles push)
-- [ ] 5.7 `/(app)/admin/services` CRUD
+- [x] 5.1 `/(app)/admin/settings/business`
+- [x] 5.2 `/(app)/admin/settings/branding` (colores + logo + inyección CSS vars)
+- [x] 5.3 `/(app)/admin/settings/loyalty` (thresholds + multiplicadores)
+- [x] 5.4 `/(app)/admin/settings/antifraud` (TTL + límites)
+- [x] 5.5 `/(app)/admin/settings/raffles` (defaults elegibilidad)
+- [x] 5.6 `/(app)/admin/settings/notifications` (toggles push)
+- [x] 5.7 `/(app)/admin/services` CRUD
 - [ ] 5.8 Audit log con actor + diff en cada cambio
 
 ### Sprint 6 — Pulido + E2E + Deploy
 
-- [ ] 6.1 Loading skeletons glass en todas las rutas
-- [ ] 6.2 Estados vacíos ilustrados
-- [ ] 6.3 Compliance `prefers-reduced-motion`
+- [x] 6.1 Loading skeletons glass base
+- [x] 6.2 Estados vacíos ilustrados
+- [x] 6.3 Compliance `prefers-reduced-motion`
 - [ ] 6.4 Playwright golden path completo
 - [ ] 6.5 `@axe-core/playwright` audit
 - [ ] 6.6 Deploy Vercel prod + Supabase prod

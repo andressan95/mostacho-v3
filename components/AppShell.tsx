@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { LogOut } from "lucide-react";
 
@@ -11,6 +11,7 @@ type AppShellProps = {
   role: AppRole;
   fullName: string;
   tenantName?: string;
+  style?: CSSProperties;
   children: ReactNode;
 };
 
@@ -20,9 +21,18 @@ const ROLE_LABEL: Record<AppRole, string> = {
   admin: "Admin",
 };
 
-export function AppShell({ role, fullName, tenantName, children }: AppShellProps) {
+export function AppShell({
+  role,
+  fullName,
+  tenantName,
+  style,
+  children,
+}: AppShellProps) {
   return (
-    <div className="relative flex min-h-dvh flex-col overflow-x-hidden">
+    <div
+      className="relative flex min-h-dvh flex-col overflow-x-hidden"
+      style={style}
+    >
       <PurpleBlob position="top-right" size="md" intensity="soft" />
       <PurpleBlob position="bottom-left" size="lg" intensity="soft" />
 

@@ -12,6 +12,11 @@ export type ProfileState = {
   fieldErrors?: { fullName?: string; phone?: string; birthday?: string };
 };
 
+export type PushState = {
+  error?: string;
+  message?: string;
+};
+
 const schema = z.object({
   fullName: z.string().trim().min(2).max(120),
   phone: z.string().trim().min(4),
@@ -73,4 +78,48 @@ export async function updateProfile(
   revalidatePath("/client/profile");
   revalidatePath("/client");
   return { message: "Perfil actualizado." };
+}
+
+export async function savePushSubscription(
+  _prev: PushState,
+  formData: FormData,
+): Promise<PushState> {
+  const rawSubscription = String(formData.get("subscription") ?? "");
+  const userAgent = String(formData.get("userAgent") ?? "");
+
+  if (!rawSubscription) {
+    return { error: "No se recibió ninguna suscripción push." };
+  }
+
+  let parsedSubscription: {
+    endpoint?: string;
+    keys?: Record<string, string | undefined>;
+  };
+
+  try {
+    parsedSubscription = JSON.parse(rawSubscription) as {
+      endpoint?: string;
+      keys?: Record<string, string | undefined>;
+    };
+  } catch {
+    return { error: "La suscripción push no tiene un formato válido." };
+  }
+
+  if (!parsedSubscription.endpoint || !parsedSubscription.keys) {
+    return { error: "La suscripción está incompleta." };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("upsert_push_subscription", {
+    p_endpoint: parsedSubscription.endpoint,
+    p_keys: parsedSubscription.keys,
+    p_user_agent: userAgent || "unknown-device",
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath("/client/profile");
+  return { message: "Notificaciones activadas para este dispositivo." };
 }

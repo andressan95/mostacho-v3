@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GlassCard, NeonButton, PointsBadge, PurpleBlob } from "@/components/glass";
 import { Scissors, Sparkles, Trophy } from "lucide-react";
 
@@ -52,13 +53,24 @@ export default function HomePage() {
         </GlassCard>
 
         <div className="flex w-full flex-col gap-3 sm:flex-row">
-          <NeonButton fullWidth size="lg">
-            Iniciar sesión
-          </NeonButton>
-          <NeonButton variant="ghost" fullWidth size="lg">
-            Ver sorteos activos
-          </NeonButton>
+          <Link href="/auth/sign-in" className="w-full">
+            <NeonButton fullWidth size="lg">
+              Iniciar sesión
+            </NeonButton>
+          </Link>
+          <Link href="/raffles" className="w-full">
+            <NeonButton variant="ghost" fullWidth size="lg">
+              Ver sorteos activos
+            </NeonButton>
+          </Link>
         </div>
+
+        <Link
+          href="/services"
+          className="text-sm text-[color:var(--color-purple-vivid)] transition-opacity hover:opacity-85"
+        >
+          Ver servicios y puntos por corte
+        </Link>
       </section>
     </main>
   );
